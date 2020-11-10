@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+        <title>Главная страница сайта</title>
+{% endblock %}
+
+{% block header %}
+    {% include "include/header.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row m-3">
+            <div class="blog__categories col-sm-3">
+                <ul class="list-group">
+                    {% for blog_category in blog_categories %}
+                        <a href="/category/{{ blog_category.pk }}" class="list-group-item">
+                            {{ blog_category.title }}
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="blog__posts col-sm-9">
+                {% for blog_post in blog_posts %}
+                    <div class="card">
+                        <img class="card-img-top" src="{{ blog_post.main_img.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ blog_post.title }}</h5>
+                            <p class="card-text">{{ blog_post.topic }}</p>
+                            <p class="card-text">{{ blog_post.text|truncatechars:100 }} </p>
+                            <p class="card-text">{{ blog_post.created_at }}</p>
+                            <a href="{% url 'single_blog_page' blog_post.pk %}" class="btn btn-primary">Читать новость</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

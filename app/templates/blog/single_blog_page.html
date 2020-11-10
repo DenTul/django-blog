@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+        <title>{{ single_news.title }}</title>
+{% endblock %}
+
+{% block header %}
+    {% include "include/header.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row m-3">
+            <div class="blog__categories col-sm-3">
+                <ul class="list-group">
+                    {% for blog_category in blog_categories %}
+                        <a href="/category/{{ blog_category.pk }}" class="list-group-item">
+                            {{ blog_category.title }}
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="blog__post col-sm-9">
+                <div class="blog__post__title">
+                    {{ single_news.title }}
+                </div>
+                <img src="{{ single_news.main_img.url }}" style="width: 400px; height: 200px;" alt="">
+                <div class="blog__post__text">
+                    {{ single_news.text|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
